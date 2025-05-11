@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fanlar</title>
+</head>
+<body>
+<h1>Fanlar</h1>
+<hr>
+
+<form>
+    <input type="text" placeholder="Qidirish..." name="search" {% if search %} value="{{ search }}" {% endif %}>
+    <button>Qidirish</button>
+</form>
+{% for fan in fanlar %}
+<p>{{ forloop.counter }}. {{ fan.nom }}</p>
+<a href="/fanlar/{{ fan.id }}">ochirish</a>
+{% endfor %}
+</body>
+</html>

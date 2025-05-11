@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Yonalishlar royhati</h1>
+{% for yonalish in yonalishlar %}
+<p>{{ forloop.counter }}. {{ yonalish.nom }}</p>
+<a href="/yonalishlar/{{ yonalish.id }}"><button>OCHIRISH</button></a>
+{% endfor %}
+</body>
+</html>
