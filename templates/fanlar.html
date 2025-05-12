@@ -8,6 +8,20 @@
 <h1>Fanlar</h1>
 <hr>
 
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="nom" placeholder="nom..."><br>
+    <input type="radio" name="asosiy"><br>
+    <select name="yonalish">
+        {% for yonalish in yonalishlar %}
+        <option value="{{ yonalish.id }}">{{ yonalish.nom }}</option>
+        {% endfor %}
+    </select>
+    <button>Saqlash</button>
+</form>
+
+<hr>
+
 <form>
     <input type="text" placeholder="Qidirish..." name="search" {% if search %} value="{{ search }}" {% endif %}>
     <button>Qidirish</button>

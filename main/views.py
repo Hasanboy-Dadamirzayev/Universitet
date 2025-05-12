@@ -1,10 +1,19 @@
 from re import search
 
 from django.shortcuts import render, redirect
+from django.template.context_processors import request
+
 from .models import *
 
 def fanlar(request):
     fanlar = Fan.objects.all()
+
+    if request.method == 'POST':
+        Fan.objects.create(
+            nom = request.POST.get('nom'),
+            asosiy = True if request.POST.get('asosiy') == 'on' else False,
+            yonalish = Yonalish.objects.get(id=request.POST.get('yonalish'))
+        )
 
     search = request.GET.get('search')
     if search is not None:
@@ -14,7 +23,8 @@ def fanlar(request):
 
     context = {
         'fanlar': fanlar,
-        'search': search
+        'search': search,
+        'yonalishlar': Yonalish.objects.all()
     }
     return render(request, 'fanlar.html', context)
 
@@ -32,6 +42,13 @@ def fan_delete(request, fan_id):
 
 def yonalishlar(request):
     yonalishlar = Yonalish.objects.all()
+
+    if request.method == 'POST':
+        Yonalish.objects.create(
+            nom = request.POST.get('nom'),
+            aktiv = True if request.POST.get('aktiv') == 'on' else False,
+        )
+
     context = {
         'yonalishlar': yonalishlar
     }
@@ -52,6 +69,15 @@ def yonalish_confirm(request, yonalish_id):
 def ustozlar(request):
     ustozlar = Ustoz.objects.all()
 
+    if request.method == 'POST':
+        Ustoz.objects.create(
+            ism = request.POST.get('ism'),
+            yosh = request.POST.get('yosh'),
+            jins = request.POST.get('jins'),
+            daraja = request.POST.get('daraja'),
+            fan = Fan.objects.get(id=request.POST.get('fan'))
+        )
+
     search = request.GET.get('search')
     if search is not None:
         ustozlar = Ustoz.objects.filter(ism__contains=search)
@@ -60,7 +86,8 @@ def ustozlar(request):
 
     context = {
         'ustozlar': ustozlar,
-        'search': search
+        'search': search,
+        'fanlar': Fan.objects.all(),
     }
     return render(request, 'ustozlar.html', context)
 

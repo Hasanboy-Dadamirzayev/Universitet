@@ -7,6 +7,22 @@
 <body>
 <h1>Ustozlar</h1>
 <hr>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="ism"><br>
+    <input type="number" name="yosh"><br>
+    <input type="text" name="jins"><br>
+    <input type="text" name="daraja"><br>
+    <select name="fan">
+        {% for fan in fanlar %}
+        <option value="{{ fan.id }}">{{ fan.nom }}</option>
+        {% endfor %}
+    </select>
+    <button>Saqlash</button>
+</form>
+
+<hr>
 <form>
   <input type="text" placeholder="Qidirish..." name="search" {% if search %} value="{{ search }}" {% endif %}>
   <button>Qidirish</button>
