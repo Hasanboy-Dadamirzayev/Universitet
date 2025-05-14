@@ -30,6 +30,7 @@
 {% for ustoz in ustozlar %}
 <p>{{ forloop.counter }}. {{ ustoz.ism }}</p>
 <a href="/ustozlar/{{ ustoz.id }}"><button>Ochirish</button></a>
+<button><a href="/ustozlar/{{ ustoz.id }}/edit">Tahrirlash</a></button>
 {% endfor %}
 </body>
 </html>

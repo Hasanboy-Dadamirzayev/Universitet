@@ -16,10 +16,12 @@ class Fan(models.Model):
         return self.nom
 
 class Ustoz(models.Model):
+    JINS_TANLASH = (("Erkak", "Erkak"), ("Ayol", "Ayol"))
+    DARAJA = (("Bakalavr", "Bakalavr"), ("Magistr", "Magistr"))
     ism = models.CharField(max_length=255)
     yosh = models.PositiveSmallIntegerField(default=18)
-    jins = models.CharField(max_length=20, choices=(("Erkak", "Erkak"), ("Ayol", "Ayol")))
-    daraja = models.CharField(max_length=20, choices=(("Bakalavr", "Bakalavr"), ("Magistr", "Magistr")))
+    jins = models.CharField(max_length=20, choices=JINS_TANLASH)
+    daraja = models.CharField(max_length=20, choices=DARAJA)
     fan = models.ForeignKey(Fan, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):

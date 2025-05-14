@@ -35,11 +35,6 @@ def fan(request, fan_id):
     }
     return render(request, 'fan_confirm.html', context)
 
-def fan_delete(request, fan_id):
-    fan = Fan.objects.get(id=fan_id)
-    fan.delete()
-    return redirect('fanlar')
-
 def yonalishlar(request):
     yonalishlar = Yonalish.objects.all()
 
@@ -103,6 +98,63 @@ def ustoz_confirm(request, ustoz_id):
         'ustoz': ustoz
     }
     return render(request, 'usoz_confirm.html', context)
+
+from django.shortcuts import get_object_or_404
+
+def fan_edit(request, fan_id):
+    fan = Fan.objects.get(id=fan_id)
+    yonalishlar = Yonalish.objects.all()
+
+    if request.method == 'POST':
+        yonalish_id = request.POST.get('yonalish')
+        yonalish = get_object_or_404(Yonalish, id=yonalish_id)
+
+        fan.nom = request.POST.get('nom')
+        fan.asosiy = 'asosiy' in request.POST
+        fan.yonalish = yonalish
+        fan.save()
+
+        return redirect('fanlar')
+
+    context = {
+        'fan': fan,
+        'yonalishlar': yonalishlar,
+    }
+    return render(request, 'fan_edit.html', context)
+
+def yonalish_edit(request, yonalish_id):
+    yonalish = Yonalish.objects.get(id=yonalish_id)
+    if request.method == 'POST':
+        Yonalish.objects.filter(id=yonalish_id).update(
+            nom = request.POST.get('nom'),
+            aktiv = True if request.POST.get('aktiv') == 'on' else False
+        )
+        return redirect('yonalishlar')
+    context = {
+        'yonalish': yonalish
+    }
+    return render(request, 'yonalish_edit.html', context)
+
+def ustoz_edit(request, ustoz_id):
+    ustoz = Ustoz.objects.get(id=ustoz_id)
+    fanlar = Fan.objects.all()
+    if request.method == 'POST':
+        Ustoz.objects.filter(id=ustoz_id).update(
+            ism = request.POST.get('ism'),
+            yosh = request.POST.get('yosh'),
+            jins =  request.POST.get('jins'),
+            daraja = request.POST.get('daraja'),
+            fan = request.POST.get('fan'),
+        )
+        return redirect('ustozlar')
+    context = {
+        'ustoz': ustoz,
+        'jinslar': Ustoz.JINS_TANLASH,
+        'darajalar': Ustoz.DARAJA,
+        'fanlar': fanlar,
+    }
+    return render(request, 'ustoz_edit.html', context)
+
 
 
 

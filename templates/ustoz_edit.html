@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ustoz.ism}}</title>
+</head>
+<body>
+<h1>Tahrirlash</h1>
+<form method="post">
+    {% csrf_token %}
+    <label>Ism:</label>
+    <input type="text" name="ism" value="{{ ustoz.ism }}">
+    <label>Yosh:</label>
+    <input type="number" name="yosh" value="{{ ustoz.yosh }}">
+    <label>Jins</label>
+    <select name="jins">
+        {% for jins in jinslar %}
+        <option value="{{ jins.0 }}" {% if ustoz.jins == jins.0 %}selected{% endif %}>
+              {{ jins.1 }}
+        </option>
+        {% endfor %}
+    </select>
+    <label>Daraja:</label>
+    <select name="daraja">
+        {% for daraja in darajalar %}
+        <option value="{{ daraja.0 }}" {% if ustoz.daraja == daraja.0 %}selected{% endif %}>
+            {{ daraja.1 }}
+        </option>
+        {% endfor %}
+    </select>
+    <label>Fan:</label>
+    <select name="fan">
+        {% for fan in fanlar %}
+        <option value="{{ fan.id }}" {% if ustoz.fan.id == fan.id %}selected{% endif %}>
+             {{ fan.nom }}
+        </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Saqlash</button>
+</form>
+</body>
+</html>

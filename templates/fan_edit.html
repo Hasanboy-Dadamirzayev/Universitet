@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>{{ fan.nom }} fanini malumotlarini yangilash</p>
+<form method="post">
+    {% csrf_token %}
+    <label>Nom:</label>
+    <input type="text" name="nom" value="{{ fan.nom }}">
+    <label>Asosiy:</label>
+    <input type="checkbox" name="asosiy" value="{{ fan.asosiy }}">
+    <label>Yonalish</label>
+    <select name="yonalish">
+    {% for yonalish in yonalishlar %}
+        <option value="{{ yonalish.id }}" {% if fan.yonalish.id == yonalish.id %}selected{% endif %}>
+            {{ yonalish.nom }}
+        </option>
+    {% endfor %}
+    </select>
+
+    <button>saqlash</button>
+
+</form>
+</body>
+</html>

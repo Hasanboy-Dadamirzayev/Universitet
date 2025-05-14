@@ -28,7 +28,8 @@
 </form>
 {% for fan in fanlar %}
 <p>{{ forloop.counter }}. {{ fan.nom }}</p>
-<a href="/fanlar/{{ fan.id }}">ochirish</a>
+<button><a href="/fanlar/{{ fan.id }}">ochirish</a></button>
+<button><a href="/fanlar/{{ fan.id }}/edit">Tahrirlash</a></button>
 {% endfor %}
 </body>
 </html>

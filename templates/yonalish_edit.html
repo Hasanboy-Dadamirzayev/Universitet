@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>{{ yonalish.nom }} yonalishi tahrirlanmoqda</p>
+<form method="post">
+    {% csrf_token %}
+    <label>Yonalish:</label>
+    <input type="text" name="nom" value="{{ yonalish.nom }}">
+    <label>Aktiv:</label>
+    <input type="checkbox" name="aktiv" value="true" {% if yonalish.aktiv %}checked{% endif %}>
+    <button>Saqlash</button>
+</form>
+</body>
+</html>
