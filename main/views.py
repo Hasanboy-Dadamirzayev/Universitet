@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.template.context_processors import request
 
 from .models import *
+from .forms import *
 
 def fanlar(request):
     fanlar = Fan.objects.all()
@@ -155,6 +156,40 @@ def ustoz_edit(request, ustoz_id):
     }
     return render(request, 'ustoz_edit.html', context)
 
+def fan_create(request):
+    if request.method == 'POST':
+        form_data = FanForm(request.POST)
+        if form_data.is_valid():
+            form_data.save()
+            return redirect('fanlar')
+    context = {
+        'form': FanForm,
+    }
+    return render(request, 'fan_create.html', context)
+
+def yonalish_create(request):
+    if request.method == 'POST':
+        form_data = YonalishForm(request.POST)
+        if form_data.is_valid():
+            form_data.save()
+            return redirect('yonalishlar')
+
+    context = {
+        'form': YonalishForm,
+    }
+    return render(request, 'yonalish_create.html', context)
+
+def ustoz_create(request):
+    if request.method == 'POST':
+        form_data = UstozForm(request.POST)
+        if form_data.is_valid():
+            form_data.save()
+            return redirect('teachers')
+
+    context = {
+        'form': UstozForm,
+    }
+    return render(request,'ustoz_create.html', context)
 
 
 

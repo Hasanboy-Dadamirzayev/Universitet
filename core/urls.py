@@ -13,8 +13,11 @@ urlpatterns = [
     path('yonalishlar/<int:yonalish_id>', yonalish_confirm),
     path('yonalishlar/<int:yonalish_id>/edit', yonalish_edit),
     path('yonalishalr/<int:yonalish_id>/delete', yonalish_delete),
-    path('ustozlar/', ustozlar, name='ustozlar'),
+    path('ustozlar/', ustozlar, name='teachers'),
     path('ustozlar/<int:ustoz_id>/', ustoz_confirm),
     path('ustozlar/<int:ustoz_id>/edit', ustoz_edit),
     path('ustozlar/<int:ustoz_id>/delete', ustoz_delete),
+    path('ustozlar/create', ustoz_create),
+    path('fanlar/create', fan_create),
+    path('yonalishlar/create', yonalish_create),
 ]
